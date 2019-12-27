@@ -1,0 +1,14 @@
+web/app/src/public/app/*
+web/app/src/public/image/*
+web/logs/*
+db/app/mysql/mysql_data/*
+api/app/src/migrations/sqls/*
+api/app/src/public/images/screenshot/*
+api/app/src/public/images/icon/*
+api/app/src/public/files/plist/*
+api/app/src/public/files/ipa/*
+api/app/src/public/files/apk/*
+api/app/src/public/files/app_temp/*
+api/logs/*
+!.gitkeep
+

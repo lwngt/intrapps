@@ -1,0 +1,122 @@
+version: "3"
+services:
+  # ######################################################################
+  # Node.js for front
+  web-app:
+    build:
+      context: ./ # Dockerfile path
+      dockerfile: ./web/docker/construct_app/Dockerfile # Dockerfile name
+    image: intrapps_web_image # image name
+    container_name: intrapps_web_container # container name
+    ports:
+      - "3000:3000"
+    environment: # Environment variable
+      - PORT=3000
+    volumes: # mount workdir
+      - ./web/logs:/root/.npm/_logs
+      - ./web/logs:/work/logs
+      - ./web/app/src/common/config:/work/common/config
+    command: [sh, -c, npm install && npm start] # Command after working
+    expose: # Open port settting
+      - "3000"
+    networks:
+      - intrapps_network
+  # Nginx for front
+  nginx-web-proxy:
+    build:
+      context: ./ # Dockerfile path
+      dockerfile: ./web/docker/construct_web/Dockerfile # Dockerfile name
+    image: intrapps_web_nginx_image # image name
+    container_name: intrapps_web_nginx_container # container name
+    ports: # Port in this application(host:container)
+      - 443:443
+    volumes: # mount workdir
+      - ./web/app/nginx:/etc/nginx/conf.d/
+      - ./web/app/nginx:/etc/ssl/certs
+    links:
+      - "web-app"
+    expose: # Open port settting
+      - "443"
+    networks:
+      - intrapps_network
+  # ######################################################################
+  # Node.js for api
+  api-app:
+    build:
+      context: ./ # Dockerfile path
+      dockerfile: ./api/docker/construct_app/Dockerfile # Dockerfile name
+    image: intrapps_api_image # image name
+    container_name: intrapps_api_container # container name
+    ports: # Port in this application(host:container)
+      - "3001:3001"
+    environment: # Environment variable
+      - PORT=3001
+    volumes: # Mount resource directory in the host
+      - ./api/app/logs:/work/logs
+      - ./api/app/src/public/files/apk:/work/public/files/apk
+      - ./api/app/src/public/files/ipa:/work/public/files/ipa
+      - ./api/app/src/public/files/app_temp:/work/public/files/app_temp
+      - ./api/app/src/public/files/plist:/work/public/files/plist
+      - ./api/app/src/public/images/icon:/work/public/images/icon
+      - ./api/app/src/public/images/screenshot:/work/public/images/screenshot
+      - ./api/app/src/api_conf:/work/api_conf
+      - ./api/app/src/db_conf:/work/db_conf
+      - ./api/app/src/mail_conf:/work/mail_conf
+      - ./api/app/src/migrations:/work/migrations
+      - ./api/app/src/migrations/sqls:/work/migrations/sqls
+      - ./api/app/src/plist_template:/work/plist_template
+    expose: # Open port settting
+      - "3001"
+    command: [sh, -c, npm install && npm start] # Command after working
+    networks:
+      - intrapps_network
+  # Nginx for api
+  nginx-api-proxy:
+    build:
+      context: ./
+      dockerfile: ./api/docker/construct_web/Dockerfile # Dockerfile name
+    image: intrapps_api_nginx_image # image name
+    container_name: intrapps_api_nginx_container # container name
+    ports: # Port in this application(host:container)
+      - 8181:8181
+    volumes: # Mount resource directory in the host
+      - ./api/logs:/root/.npm/_logs
+      - ./api/app/nginx:/etc/ssl/certs
+      - ./api/app/nginx:/etc/nginx/conf.d/
+      - ./api/app/src/public/files:/var/www/html/files
+      - ./api/app/src/public/files/ipa:/var/www/html/files/ipa
+      - ./api/app/src/public/files/plist:/var/www/html/files/plist
+      - ./api/app/src/public/files/apk:/var/www/html/files/apk
+      - ./api/app/src/public/images:/var/www/html/images
+      - ./api/app/src/public/images/screenshot:/var/www/html/images/screenshot
+      - ./api/app/src/public/images/icon:/var/www/html/images/icon
+    links:
+      - "api-app"
+    expose: # Open port settting
+      - "8181"
+    networks:
+      - intrapps_network
+  # ######################################################################
+  #mysql
+  db:
+    build: ./db/docker/construct_db
+    restart: always
+    image: intrapps_db_image # Docker image name
+    container_name: intrapps_db_container # Docker container name
+    environment:
+      MYSQL_DATABASE: "app"
+      MYSQL_USER: "user"
+      MYSQL_PASSWORD: "password"
+      MYSQL_ROOT_PASSWORD: "rootpassword"
+    volumes:
+      - ./db/app/mysql/mysql_data:/var/lib/mysql # parmanent data
+      - ./db/app/mysql/sqls:/docker-entrypoint-initdb.d # initial data
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    networks:
+      - intrapps_network
+networks:
+  intrapps_network:
+    external: true
