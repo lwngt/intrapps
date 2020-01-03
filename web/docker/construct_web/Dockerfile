@@ -1,5 +1,5 @@
 # base image
-FROM intrapps/intrapps_web_nginx:0.1-rel
+FROM intrapps/intrapps_web_nginx:0.2.0-rel
 
 # environment variables
 ENV NODE_ENV="production"

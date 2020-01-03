@@ -1,5 +1,5 @@
 # base image
-FROM intrapps/intrapps_web:0.6.3-rel
+FROM intrapps/intrapps_web:0.6.4-rel
 
 # environment variables
 ENV NODE_ENV="production"
