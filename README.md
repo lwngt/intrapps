@@ -1,6 +1,6 @@
-<div style="text-align:center">
-<img style="width: 250px;" src="https://www.intrapps.com/assets/img/intrapps_logo.png">
-</div>
+<p align="center">
+<img width="250" src="https://www.intrapps.com/assets/img/intrapps_logo.png">
+</p>
 <br>
 <br>
 
