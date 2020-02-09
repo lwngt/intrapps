@@ -14,7 +14,7 @@ You don't need install special app to delivery and ask ID like Apple ID and Goog
 - About this repogitory
 
 This repogitory is for docker based server app.<br>
-If you hope Intrapps, please download this repogitory and setup !
+If you hope to use Intrapps, please download this repogitory and setup !
 
 ## Demo site
 
