@@ -2,7 +2,6 @@
 <img width="250" src="https://www.intrapps.com/assets/img/intrapps_logo.png">
 </p>
 <br>
-<br>
 
 ![Intrapps_image](https://www.intrapps.com/assets/img/top.png)
 
