@@ -38,12 +38,16 @@ If you hope to use Intrapps, please download this repogitory and setup !
 - [API](https://github.com/lwngt/intrapps_api)
 - [Database](https://github.com/lwngt/intrapps_api)
 
+## UI framework
+
+[Paper Dashboard 2 PRO from Creative Tim](https://www.creative-tim.com/product/paper-dashboard-2-pro)
+
 ## Licence
 
 Intrapps<br>
 Copyright (c) 2020 [Lichtwork.com](https://www.lichtwork.com)<br>
 Apache License 2.0
 
-## UI framework
+## Story
 
-[Paper Dashboard 2 PRO from Creative Tim](https://www.creative-tim.com/product/paper-dashboard-2-pro)
+[here](https://www.intrapps.com/story.html)
