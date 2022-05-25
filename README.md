@@ -49,7 +49,7 @@ If you hope to use Intrapps, please download this repogitory and setup !
 ## Licence
 
 Intrapps<br>
-Copyright (c) 2020 [Lichtwork.com](https://www.lichtwork.com)<br>
+Copyright (c) 2022 [Lichtwork.com](https://www.lichtwork.com)<br>
 Apache License 2.0
 
 ## Story
